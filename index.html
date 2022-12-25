@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>달력</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    -공휴일 가져오기 클<br />
+    -오늘표시, 선택된 날 표시 클<br />
+    -디데이 기능(만들기 수정 삭제)
+    <br />
+    -내년까지 남은시간: <span id="dDay"></span><br />
+    -첫만남날: <span id="relativeTime"></span><br /> 
+    <div class="timeago" datetime="2016-6-30 09:20:00"></div>
+    <form id="기념일폼">   
+        기념일 입력받기 <br />              
+        <label for="이름">이름 :</label>
+        <input type="text" 
+            id="이름" 
+            placeholder="기념일 이름을 입력하세요"
+            maxlength = "15"
+            size = "18"
+            required>
+        <label for="날짜">날짜:</label>
+        <input type="date" id="날짜" required>
+        <input type="submit" value="Submit">
+    </form>    
+    <br />
+    <div id="왼쪽파트">
+        <div id="날짜표시돼는파트"></div>
+        <div id="입력받는 파트">        
+        </div>
+        <div id="입련된거 표시되는 파트"></div>
+    </div>
+    <div class="년월"></div>
+    <div class="이전">전달</div>    
+    <div class="calendar"></div>  
+    <div class="이후">담달</div> 
+    <script src="calendar.js"></script> 
+    <script src="time.js"></script>  
+    <script src="dDay.js"></script>  
+    <script src="relativeTime.js"></script>   
+    <script src="기념일.js"></script>
+</body>
+</html>
