@@ -36,6 +36,16 @@ const 일주일 = ['일','월','화','수','목','금','토'];
 let 요일 = 일주일[date.getDay()];
 const 오늘날짜 = date.getDate();
 let x = '';
+const 기념일들 = [
+    {        
+        기념일이름: '민채생일',
+        기념일날짜: 20221220,
+        id:Date.now()      
+        //년도는 빼야는구나 뒤에 네자리만 비교해야하네
+        //기념일 다시만들어야하네
+    } , 
+   
+ ];
 
 function 달력그리기(그릴달이있는날짜객체) {
 
@@ -63,7 +73,7 @@ function 달력그리기(그릴달이있는날짜객체) {
     }    
     for (let i = 전달마지막날짜 - 전달마지막요일 + 1; i <= 전달마지막날짜; i++) {
         calendar.innerHTML = calendar.innerHTML + 
-        `<div class="전달 day" id="${year}${String(month).padStart(2,'0')}${String(i).padStart(2,'0')}">` + i + '</div>'
+        `<div class="전달 day">` + i + '</div>'
     }    
     for (let i = 1;  i <= 이번달마지막날짜; i++) {
         calendar.innerHTML = calendar.innerHTML + 
@@ -71,12 +81,14 @@ function 달력그리기(그릴달이있는날짜객체) {
     }    
     for (let i = 1; i <= 7 - 이번달마지막요일; i++) {
         calendar.innerHTML = calendar.innerHTML + 
-        `<div class="다음달 day" id="${year}${String(month+2).padStart(2,'0')}${String(i).padStart(2,'0')}"">` + i + '</div>'
+        `<div class="다음달 day">` + i + '</div>'
         //12월에서 다음년도 1월 13으로 표시되는거 있음
     }
     x = document.querySelectorAll('.day');
     오늘표시();      
     공휴일(year);
+    기념일그리기();
+    console.log(기념일들);    
 }
 
 달력그리기(date);
@@ -106,17 +118,30 @@ async function 공휴일(년도) {
     const response = await fetch(`https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo?solYear=${년도}&numOfRows=20&_type=json&ServiceKey=QxgTSZRqU971shtYn63fok7jD2ZPnph%2F7wNxNIETgygZEzziSI7v%2FbOwcx9EW6LV7vssAhXjNU22KucPP54GCw%3D%3D`);
     const data = await response.json(); 
     const item = data.response.body.items.item;
-    x = document.querySelectorAll('.day');        
+    //x = document.querySelectorAll('.day');        
     for(let i = 0; i < item.length; i++) {
         for(let j = 0; j < x.length; j++){
             if(item[i].locdate === Number(x[j].id)) {
                 x[j].classList.add('공휴일');
-                x[j].innerText += item[i].dateName; 
+                x[j].innerHTML += `<br />${item[i].dateName}`; 
             }
         }           
     }    
 }
    
+function 기념일그리기() {
+    //x = document.querySelectorAll('.day');  
+        for(let i = 0; i < 기념일들.length; i++) {
+            for(let j = 0; j < x.length; j++){
+                if(기념일들[i].기념일날짜 === Number(x[j].id)) {
+                    x[j].classList.add('기념일');
+                    x[j].innerText += 기념일들[i].기념일이름; 
+                }
+            }           
+        }
+}
+
+
 /*
  function getday() {
     const date = new Date();
